@@ -32,10 +32,10 @@
 }
 
 /* Active/current link */
-.sidebar a.active {
+/* .sidebar a.active {
   background-color: #04AA6D;
-  color: white;
-}
+  color: rgb(209, 10, 10);
+} */
 
 /* Links on mouse-over */
 .sidebar a:hover:not(.active) {
@@ -73,10 +73,6 @@ div.content {
   background-color: #ff0000;
 }
 </style>
-
-
-
-
 
 </head>
 
