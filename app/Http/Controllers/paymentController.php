@@ -25,7 +25,6 @@ class paymentController extends Controller
         $enrollments=Enrollment::pluck('enroll_no','id');
         return view( 'payment.create',compact('enrollments'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -35,7 +34,6 @@ class paymentController extends Controller
         Payment::create($input);
         return redirect('payments')->with('flash_message', 'Payment Addedd!');
     }
-
     /**
      * Display the specified resource.
      */
@@ -44,7 +42,6 @@ class paymentController extends Controller
         $payments = Payment::find($id);
         return view('payment.show')->with('payments', $payments);
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -52,7 +49,7 @@ class paymentController extends Controller
     {
         $payments = Payment::find($id);
         $enrollments=Enrollment::pluck('enroll_no','id');
-        return view('payment.edit',compact('payments','enrollments'));
+        return view('payment.edit',compact('enrollments'))->with('payments',$payments);
     }
 
     /**
@@ -61,7 +58,10 @@ class paymentController extends Controller
     public function update(Request $request, string $id)
     {
         $payments = Payment::find($id);
-        return view('payment.edit')->with('payments', $payments);
+        $input= $request->all();
+        $payments->update($input);
+        return redirect('payments')->with('flash_message','Batch updated');
+       
     }
 
     /**

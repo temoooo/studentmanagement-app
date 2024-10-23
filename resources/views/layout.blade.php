@@ -13,7 +13,7 @@
 
 <style>
     /* The side navigation menu */
-.sidebar {
+/* .sidebar {
   margin: 0;
   padding: 0;
   width: 200px;
@@ -21,15 +21,15 @@
   position: fixed;
   height: 100%;
   overflow: auto;
-}
+} */
 
 /* Sidebar links */
-.sidebar a {
+/* .sidebar a {
   display: block;
   color: black;
   padding: 16px;
   text-decoration: none;
-}
+} */
 
 /* Active/current link */
 /* .sidebar a.active {
@@ -38,10 +38,10 @@
 } */
 
 /* Links on mouse-over */
-.sidebar a:hover:not(.active) {
+/* .sidebar a:hover:not(.active) {
   background-color: #555;
   color: white;
-}
+} */
 
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
@@ -49,6 +49,29 @@ div.content {
   padding: 1px 16px;
   height: 1000px;
 }
+
+.sidebar {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 15px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar li {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .sidebar li:hover {
+            background-color: #f74e4e; /* Change color on hover */
+        }
+        .sidebar li.active {
+            background-color: #f01a1a; /* Selected item color */
+            color: rgb(237, 2, 2); /* Text color for selected item */
+        }
+
 
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 700px) {
@@ -72,6 +95,10 @@ div.content {
 .sidebar a.menu-item.is-active{
   background-color: #ff0000;
 }
+.line{
+  color: black;
+ 
+}
 </style>
 
 </head>
@@ -94,7 +121,7 @@ div.content {
         </div>
         <div class="row">
             <div class="col-md-3">
-                <div class="sidebar">
+                {{-- <div class="sidebar">
                     <a onclick="changeColor(this)" class="menu-item " href="{{url('/')}}">Home</a>
                     <a onclick="changeColor(this)" class="menu-item " href="{{url('/students')}}">Student</a>
                     <a onclick="changeColor(this)" class="menu-item " href="{{url('/teachers')}}">Teacher</a>
@@ -102,7 +129,20 @@ div.content {
                     <a onclick="changeColor(this)" class="menu-item " href="{{url('/batches')}}">Batches</a>
                     <a onclick="changeColor(this)" class="menu-item" href="{{url('/enrollments')}}">Enrollment</a>
                     <a onclick="changeColor(this)" class="menu-item" href="{{url('/payments')}}">Payment</a>
-                </div>
+                </div> --}}
+                <div class="sidebar">
+                  <ul>
+                      <li data-page="home" ><a href="{{url('/')}}" class="line"><h4>Home</h4></a> </li>
+                      <li data-page="Student"><a href="{{url('/students')}}" class="line"><h4>Student</h4></a></li>
+                      <li data-page="Teacher"><a href="{{url('/teachers')}}" class="line"><h4>Teacher</h4></a></li>
+                      <li data-page="Cources"><a href="{{url('/courses')}}" class="line"><h4>Cources</h4></a></li>
+                      <li data-page="Batches"><a href="{{url('/batches')}}" class="line"><h4>Batches</h4></a></li>
+                      <li data-page="Enrollment"><a href="{{url('/enrollments')}}" class="line"><h4>Enrollment</h4></a></li>
+                      <li data-page="Payment"><a href="{{url('/payments')}}" class="line"><h4>Payment</h4></a></li>
+
+                  
+                  </ul>
+              </div>
             </div>
             <div class="col-md-9">
                  
@@ -114,9 +154,47 @@ div.content {
 </body>
 
 </html>
+
+
 <script>
+  const items = document.querySelectorAll('.sidebar li');
+
+  // Load the active item from localStorage
+  const activePage = localStorage.getItem('activePage');
+  if (activePage) {
+      items.forEach(item => {
+          if (item.getAttribute('data-page') === activePage) {
+              item.classList.add('active');
+          }
+      });
+  }
+
+  // Add click event listeners to each item
+  items.forEach(item => {
+      item.addEventListener('click', function() {
+          // Remove 'active' class from all items
+          items.forEach(i => i.classList.remove('active'));
+          // Add 'active' class to the clicked item
+          this.classList.add('active');
+          // Save the active item in localStorage
+          localStorage.setItem('activePage', this.getAttribute('data-page'));
+      });
+  });
+</script>
+
+{{-- <script>
+  const items = document.querySelectorAll('.sidebar li');
+
+  items.forEach(item => {
+      item.addEventListener('click', function() {
+          items.forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+      });
+  });
+</script> --}}
+{{-- <script>
   function changeColor(e){
     document.querySelector("menu-item.is-active").classList.remove("is-active")
     e.classList.add("is-active")
   }
-</script>
+</script> --}}
